@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import {
   useTheme,
@@ -15,12 +15,36 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { url } from "../components/url";
 
 export function DrawerContent(props) {
+  const [name, setName] = useState("");
+  const [PRN, setPRN] = useState("");
+  const [img, setImg] = useState("");
+
   const logout = async () => {
     await AsyncStorage.removeItem("token");
     props.navigation.replace("Login");
   };
+
+  const loadData = async () => {
+    const token = await AsyncStorage.getItem("token");
+    fetch(url + "/profile", {
+      headers: new Headers({
+        Authorization: "Bearer " + token,
+      }),
+    })
+      .then((res) => res.json())
+      .then(async (data) => {
+        console.log(data);
+        setName(data.name);
+        setPRN(data.PRN);
+        setImg(data.img);
+      });
+  };
+  useEffect(() => {
+    loadData();
+  }, [img]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -30,13 +54,15 @@ export function DrawerContent(props) {
             <View style={{ flexDirection: "row", marginTop: 15 }}>
               <Avatar.Image
                 source={{
-                  uri: "hello.png",
+                  width: 720,
+                  height: 812,
+                  uri: url + img,
                 }}
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>Yash Hoke</Title>
-                <Caption style={styles.caption}>@2018BTECS00101</Caption>
+                <Title style={styles.title}>{name}</Title>
+                <Caption style={styles.caption}>@{PRN}</Caption>
               </View>
             </View>
 

@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { url } from "../components/url";
+
 const SignupScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const sendCred = async (props) => {
-    fetch("http://192.168.43.170:3000/signup", {
+    fetch(url + "/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

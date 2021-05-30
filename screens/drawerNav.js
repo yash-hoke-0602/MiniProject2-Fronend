@@ -21,7 +21,7 @@ function DrawerNav(props) {
       statusBarAnimation={true}
       overlayColor="black"
       drawerStyle={{
-        backgroundColor: "#c6cbef",
+        backgroundColor: "lightgrey",
         width: 240,
       }}
       drawerContent={(props) => <DrawerContent {...props} />}

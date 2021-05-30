@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text, Button, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Button, Pressable, Image } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { url } from "../components/url";
 
 const Profile = (props) => {
   return (
@@ -23,7 +24,17 @@ const Profile = (props) => {
           <Text style={{ fontSize: 30, color: "white" }}>Profile</Text>
         </View>
       </View>
-      <View style={{ flex: 0.9 }}></View>
+      <View style={{ flex: 0.9 }}>
+        <Text>Cool</Text>
+        <Image
+          source={{
+            uri: url + "/profiles/userName.jpg",
+
+            width: 200,
+            height: 200,
+          }}
+        />
+      </View>
     </View>
   );
 };
