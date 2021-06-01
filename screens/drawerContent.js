@@ -18,8 +18,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { url } from "../components/url";
 
 export function DrawerContent(props) {
-  const [name, setName] = useState("");
-  const [PRN, setPRN] = useState("");
+  const [email, setEmail] = useState("");
   const [img, setImg] = useState("");
 
   const logout = async () => {
@@ -37,14 +36,17 @@ export function DrawerContent(props) {
       .then((res) => res.json())
       .then(async (data) => {
         console.log(data);
-        setName(data.name);
-        setPRN(data.PRN);
+        setEmail(data.email);
         setImg(data.img);
       });
   };
   useEffect(() => {
     loadData();
-  }, [img]);
+  });
+  // ------Use this in future---------
+  // useEffect(() => {
+  //     loadData();
+  //   },[]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -61,24 +63,24 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>{name}</Title>
-                <Caption style={styles.caption}>@{PRN}</Caption>
+                <Title style={styles.title}></Title>
+                <Caption style={styles.caption}></Caption>
               </View>
             </View>
 
             <View style={styles.row}>
               <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.caption]}>
-                  0
+                  {email}
                 </Paragraph>
-                <Caption style={styles.caption}>Post</Caption>
+                {/* <Caption style={styles.caption}>Post</Caption> */}
               </View>
-              <View style={styles.section}>
+              {/* <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.caption]}>
                   0
                 </Paragraph>
                 <Caption style={styles.caption}>Viewers</Caption>
-              </View>
+              </View> */}
             </View>
           </View>
 

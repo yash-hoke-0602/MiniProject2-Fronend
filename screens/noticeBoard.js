@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   StatusBar,
+  RefreshControl,
 } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -24,17 +25,28 @@ const Item = ({ text, email }) => (
 const NoticeBoard = (props) => {
   const [notice, setNotice] = useState([]);
   const [ready, setReady] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
+    console.log("Noticeboard");
     fetch(url + "/noticeBoard/view")
       .then((response) => response.json())
       .then((data) => {
         setNotice(data);
         setReady(true);
       });
-  }, []);
+  }, [refreshing]);
 
   const renderItem = ({ item }) => <Item text={item.text} email={item.email} />;
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -61,6 +73,9 @@ const NoticeBoard = (props) => {
             data={notice}
             renderItem={renderItem}
             keyExtractor={(item) => item._id}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         ) : (
           <Text>Loading</Text>
@@ -86,10 +101,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: "lightgreen",
+    backgroundColor: "gold",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 15,
   },
   title: {
     fontSize: 32,
