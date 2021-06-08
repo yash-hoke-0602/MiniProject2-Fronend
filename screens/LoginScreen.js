@@ -67,6 +67,7 @@ const LoginScreen = (props) => {
           label="Email"
           mode="outlined"
           value={email}
+          placeholder="UserName"
           style={{
             margin: 15,
             borderRadius: 5,
@@ -80,6 +81,7 @@ const LoginScreen = (props) => {
         <TextInput
           label="password"
           mode="outlined"
+          placeholder="Password"
           secureTextEntry={true}
           value={password}
           onChangeText={(text) => {

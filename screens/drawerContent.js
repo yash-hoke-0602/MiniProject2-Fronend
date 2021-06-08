@@ -20,6 +20,8 @@ import { url } from "../components/url";
 export function DrawerContent(props) {
   const [email, setEmail] = useState("");
   const [img, setImg] = useState("");
+  const [name, setName] = useState("");
+  const [PRN, setPRN] = useState("");
 
   const logout = async () => {
     await AsyncStorage.removeItem("token");
@@ -37,7 +39,9 @@ export function DrawerContent(props) {
       .then(async (data) => {
         console.log(data);
         setEmail(data.email);
-        setImg(data.img);
+        setImg(data.profData.image);
+        setName(data.profData.name);
+        setPRN(data.profData.prn);
       });
   };
   useEffect(() => {
@@ -63,8 +67,8 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}></Title>
-                <Caption style={styles.caption}></Caption>
+                <Title style={styles.title}>{name}</Title>
+                <Caption style={styles.caption}>{PRN}</Caption>
               </View>
             </View>
 

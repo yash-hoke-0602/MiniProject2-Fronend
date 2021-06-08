@@ -18,7 +18,7 @@ import { url } from "../components/url";
 const Item = ({ text, email }) => (
   <View style={styles.item}>
     <Text style={styles.title}>{text}</Text>
-    <Text>{"Notice From - " + email}</Text>
+    <Text style={{ color: "white" }}>{"Notice From - " + email}</Text>
   </View>
 );
 
@@ -101,14 +101,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: "gold",
+    backgroundColor: "orange",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 15,
   },
   title: {
-    fontSize: 32,
+    fontSize: 25,
   },
 });
 

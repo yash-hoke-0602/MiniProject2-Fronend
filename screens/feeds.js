@@ -1,15 +1,13 @@
-import React from 'react';
-
-import {Text ,View} from 'react-native';
+import React from "react";
+import FeedsDrawerNav from "./feedsDrawerNav";
+import { Text, View } from "react-native";
 
 const Feeds = (props) => {
-    return ( 
-        <View style={{margin:50}}>
-            <Text>
-                Feeds
-            </Text>
-        </View>
-     );
-}
- 
+  return (
+    <View style={{ flex: 1 }}>
+      <FeedsDrawerNav />
+    </View>
+  );
+};
+
 export default Feeds;

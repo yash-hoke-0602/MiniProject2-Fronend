@@ -12,6 +12,11 @@ import HomeSceen from "./screens/HomeScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Tabs from "./screens/tabs";
 
+import CreateFeeds from "./screens/createFeeds";
+import MyFeeds from "./screens/myFeeds";
+import SelectPosts from "./screens/selectPosts";
+import PdfViewer from "./screens/pdfViewer";
+
 const Stack = createStackNavigator();
 
 const App = ({ navigation }) => {
@@ -36,6 +41,10 @@ const App = ({ navigation }) => {
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="signup" component={SignupScreen} />
+        <Stack.Screen name="CreateFeeds" component={CreateFeeds} />
+        <Stack.Screen name="MyFeeds" component={MyFeeds} />
+        <Stack.Screen name="SelectPosts" component={SelectPosts} />
+        <Stack.Screen name="PdfViewer" component={PdfViewer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

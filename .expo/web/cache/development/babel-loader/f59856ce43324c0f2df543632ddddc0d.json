@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var url = \"http://192.168.43.170:5000\";","map":{"version":3,"sources":["D:/programing/React-Native/App/MiniProject2-Fronend/components/url.js"],"names":["url"],"mappings":"AAAA,OAAO,IAAMA,GAAG,GAAG,4BAAZ","sourcesContent":["export const url = \"http://192.168.43.170:5000\";\r\n"]},"metadata":{},"sourceType":"module"}

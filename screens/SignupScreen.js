@@ -14,6 +14,7 @@ import { url } from "../components/url";
 const SignupScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const sendCred = async (props) => {
     fetch(url + "/signup", {
@@ -51,6 +52,7 @@ const SignupScreen = (props) => {
         <Text style={{ fontSize: 30, marginLeft: 18, color: "orange" }}>
           SignUp page
         </Text>
+        <Text style={{ color: "red" }}>{error}</Text>
         <View
           style={{
             borderBottomColor: "orange",
@@ -78,6 +80,7 @@ const SignupScreen = (props) => {
             borderWidth: 1,
             padding: 5,
           }}
+          placeholder="UserName"
           theme={{ colors: { primary: "blue" } }}
           onChangeText={(text) => setEmail(text)}
         />
@@ -85,6 +88,7 @@ const SignupScreen = (props) => {
           label="password"
           secureTextEntry={true}
           value={password}
+          placeholder="Password"
           onChangeText={(text) => {
             setPassword(text);
           }}
