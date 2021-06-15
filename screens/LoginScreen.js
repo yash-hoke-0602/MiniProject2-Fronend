@@ -53,7 +53,7 @@ const LoginScreen = (props) => {
         <StatusBar backgroundColor="blue" barStyle="light-content" />
 
         <Text style={{ fontSize: 30, marginLeft: 18, color: "orange" }}>
-          SignIn Page
+          SignIn Screen
         </Text>
         <View
           style={{

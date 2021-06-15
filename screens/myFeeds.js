@@ -87,8 +87,26 @@ const MyFeeds = (props) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View>
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 0.1, backgroundColor: "maroon" }}>
+        <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
+          <View style={{ flex: 0.1 }}>
+            <Pressable onPress={() => props.navigation.openDrawer()}>
+              <Icon name="drag" size={40} />
+            </Pressable>
+          </View>
+        </View>
+
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 30, color: "white" }}>My Feeds</Text>
+        </View>
+      </View>
+
+      <View style={{ flex: 1 }}>
         {ready ? (
           <FlatList
             data={folders}
@@ -108,8 +126,10 @@ const MyFeeds = (props) => {
 
 const styles = StyleSheet.create({
   modalView: {
-    margin: 15,
-    backgroundColor: "#55f4",
+    marginTop: 20,
+    marginRight: 10,
+    marginLeft: 10,
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 20,
     alignItems: "flex-start",

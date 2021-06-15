@@ -50,7 +50,7 @@ const SignupScreen = (props) => {
       <KeyboardAvoidingView behavior="position">
         <StatusBar backgroundColor="blue" barStyle="light-content" />
         <Text style={{ fontSize: 30, marginLeft: 18, color: "orange" }}>
-          SignUp page
+          SignUp Screen
         </Text>
         <Text style={{ color: "red" }}>{error}</Text>
         <View

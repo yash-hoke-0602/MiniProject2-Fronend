@@ -102,7 +102,7 @@ export function FeedsNavContent(props) {
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
               )}
-              label="Search"
+              label="All Feeds"
               onPress={() => {
                 props.navigation.navigate("SearchFeeds");
               }}

@@ -145,7 +145,7 @@ const Update = (props) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 0.2, backgroundColor: "#694fad" }}>
+      <View style={{ flex: 0.2, backgroundColor: "maroon" }}>
         <View style={{ marginTop: 20, flex: 1, flexDirection: "row" }}>
           <View style={{ flex: 0.1 }}>
             <Pressable onPress={() => props.navigation.openDrawer()}>
@@ -164,7 +164,7 @@ const Update = (props) => {
         </View>
       </View>
       <ScrollView style={{ flex: 0.8, margin: 10 }}>
-        <View>
+        <View style={{ backgroundColor: "black" }}>
           {selectedImage !== null ? (
             <Image
               source={{ uri: selectedImage.uri }}
@@ -327,15 +327,18 @@ const Update = (props) => {
             theme={{ colors: { primary: "blue" } }}
             onChangeText={(text) => setPlacement(text)}
           />
-
-          <TouchableOpacity
-            onPress={handleUploadProfile}
-            style={[styles.button, { backgroundColor: "dodgerblue" }]}
-          >
-            <Text>Update Profile</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <TouchableOpacity
+        onPress={handleUploadProfile}
+        style={[
+          styles.button,
+          { top: "90%", position: "absolute", backgroundColor: "dodgerblue" },
+        ]}
+      >
+        <Text>Update Profile</Text>
+      </TouchableOpacity>
     </View>
   );
 };

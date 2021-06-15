@@ -50,7 +50,7 @@ const NoticeBoard = (props) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 0.1, backgroundColor: "#694fad" }}>
+      <View style={{ flex: 0.1, backgroundColor: "maroon" }}>
         <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
           <View style={{ flex: 0.1 }}>
             <Pressable onPress={() => props.navigation.openDrawer()}>

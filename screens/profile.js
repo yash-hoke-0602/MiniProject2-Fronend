@@ -73,7 +73,7 @@ const Profile = (props) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 0.1, backgroundColor: "#694fad" }}>
+      <View style={{ flex: 0.1, backgroundColor: "maroon" }}>
         <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
           <View style={{ flex: 0.1 }}>
             <Pressable onPress={() => props.navigation.openDrawer()}>
@@ -91,17 +91,27 @@ const Profile = (props) => {
         </View>
       </View>
       <ScrollView
-        style={{ flex: 0.9, backgroundColor: "white" }}
+        style={{ flex: 0.9, backgroundColor: "lightyellow" }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <View>
+        <View style={{ backgroundColor: "black" }}>
           <Image source={{ uri: url + image }} style={styles.thumbnail} />
         </View>
         <View style={{ marginTop: 10 }}>
-          <Card style={{ backgroundColor: "dodgerblue", margin: 10 }}>
-            <Text>Name:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Name:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -115,8 +125,18 @@ const Profile = (props) => {
             </Text>
           </Card>
 
-          <Card style={{ backgroundColor: "orange", margin: 10 }}>
-            <Text>Email:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Email:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -130,8 +150,18 @@ const Profile = (props) => {
             </Text>
           </Card>
 
-          <Card style={{ backgroundColor: "dodgerblue", margin: 10 }}>
-            <Text>PRN:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              PRN:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -144,8 +174,18 @@ const Profile = (props) => {
               {PRN}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "orange", margin: 10 }}>
-            <Text>Branch:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Branch:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -158,8 +198,18 @@ const Profile = (props) => {
               {branch}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "dodgerblue", margin: 10 }}>
-            <Text>Year:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Year:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -172,8 +222,18 @@ const Profile = (props) => {
               {year}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "orange", margin: 10 }}>
-            <Text>Address:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Address:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -186,8 +246,18 @@ const Profile = (props) => {
               {address}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "dodgerblue", margin: 10 }}>
-            <Text>Internship:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Internship:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -200,8 +270,18 @@ const Profile = (props) => {
               {internship}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "orange", margin: 10 }}>
-            <Text>Pointer:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Pointer:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -214,8 +294,18 @@ const Profile = (props) => {
               {pointer}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "dodgerblue", margin: 10 }}>
-            <Text>Achievement:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Achievement:-
+            </Text>
             <Text
               style={{
                 margin: 15,
@@ -228,8 +318,18 @@ const Profile = (props) => {
               {achievement}
             </Text>
           </Card>
-          <Card style={{ backgroundColor: "orange", margin: 10 }}>
-            <Text>Placement:-</Text>
+          <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
+            <Text
+              style={{
+                color: "maroon",
+                backgroundColor: "lightblue",
+                borderRadius: 5,
+                padding: 5,
+                fontSize: 20,
+              }}
+            >
+              Placement:-
+            </Text>
             <Text
               style={{
                 margin: 15,

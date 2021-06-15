@@ -125,8 +125,14 @@ export default function SelectPosts(props) {
             keyExtractor={(item) => item._id}
           />
         ) : (
-          <Text>Add posts</Text>
+          <Text>Loading posts</Text>
         )}
+      </View>
+      <View style={styles.container}>
+        <Button
+          title="Done"
+          onPress={() => props.navigation.navigate("MyFeeds")}
+        />
       </View>
     </View>
   );
