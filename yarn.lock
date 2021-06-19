@@ -5374,6 +5374,13 @@ react-native-login-screen@^2.1.4:
   resolved "https://registry.yarnpkg.com/react-native-login-screen/-/react-native-login-screen-2.1.4.tgz#0b11d129410860d6c93ca96ba9a7e70706863cdf"
   integrity sha512-bU0pjy1+UOprUu3aA9w9ccZqbx8zGav2MVHCcI7/DBPGPo6C3CzAgNVwYt9SWa/Im1070PzwnxUfxktsE3jHig==
 
+react-native-modal-dropdown@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal-dropdown/-/react-native-modal-dropdown-1.0.0.tgz#3985950c025c6d83c8c15968ab33e4e49e5bf634"
+  integrity sha512-+ghOIKgdRk4p3VLY2EcpKGE3IxCLcdjXkPJu6dNm4hRvre8et4T5fNiqhezYCg5aZUlTYn31Ba0dG9OOFAJHmg==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-paper@^4.8.1:
   version "4.8.1"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.8.1.tgz#ade4e552e2aaecfc3096c8aebda37bd99facf63f"

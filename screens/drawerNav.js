@@ -19,7 +19,7 @@ function DrawerNav(props) {
       edgeWidth={200}
       hideStatusBar={false}
       statusBarAnimation={true}
-      overlayColor="maroon"
+      overlayColor="black"
       drawerStyle={{
         backgroundColor: "lightgrey",
         width: 240,

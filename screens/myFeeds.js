@@ -41,7 +41,12 @@ const MyFeeds = (props) => {
 
   const Item = ({ name, tag, desc, folderId }) => (
     <Pressable
-      onPress={() => props.navigation.navigate("SelectPosts", { folderId })}
+      onPress={() =>
+        props.navigation.navigate("SelectPosts", {
+          folderId,
+          deletButton: true,
+        })
+      }
     >
       <View style={styles.modalView}>
         <Text style={styles.title}>{"Folder Name:-" + name}</Text>

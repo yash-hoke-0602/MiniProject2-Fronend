@@ -17,7 +17,7 @@ function FeedsDrawerNav(props) {
       backBehavior="history"
       openByDefault={false}
       drawerType="slide"
-      edgeWidth={200}
+      edgeWidth={100}
       hideStatusBar={false}
       statusBarAnimation={true}
       overlayColor="black"

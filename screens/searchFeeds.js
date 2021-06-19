@@ -9,6 +9,7 @@ import {
   FlatList,
   StatusBar,
   RefreshControl,
+  TouchableHighlight,
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -20,28 +21,57 @@ const SearchFeeds = (props) => {
   const [folders, setFolders] = useState([]);
   const [ready, setReady] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [all, setAll] = useState(true);
+  const [cvl, setCvl] = useState(false);
+  const [comp, setComp] = useState(false);
+  const [elec, setElec] = useState(false);
+  const [etc, setEtc] = useState(false);
+  const [mech, setMech] = useState(false);
+  const [it, setIt] = useState(false);
 
   const loadData = async () => {
     const token = await AsyncStorage.getItem("token");
-    fetch(url + "/feeds/allFolders", {
+    var filter = "empty";
+    if (all)
+      filter =
+        filter +
+        " Civil Computer Electrical Electronics Mechanical Information-Tech";
+    else {
+      if (cvl) filter = filter + " Civil";
+      if (comp) filter = filter + " Computer";
+      if (elec) filter = filter + " Electrical";
+      if (etc) filter = filter + " Electronics";
+      if (mech) filter = filter + " Mechanical";
+      if (it) filter = filter + " Information-Tech";
+    }
+    fetch(url + "/feeds/allFolders/" + filter, {
       headers: new Headers({
         Authorization: "Bearer " + token,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setFolders(data);
+        if (data.msg) {
+          console.log(data.msg);
+        } else {
+          setFolders(data);
+          console.log(data);
+        }
         setReady(true);
       });
   };
   useEffect(() => {
     loadData();
-  }, [refreshing, ready]);
+  }, [refreshing, ready, all, cvl, comp, elec, etc, mech, it]);
 
   const Item = ({ name, tag, desc, folderId, author, date }) => (
     <Pressable
-      onPress={() => props.navigation.navigate("SelectPosts", { folderId })}
+      onPress={() =>
+        props.navigation.navigate("SelectPosts", {
+          folderId,
+          deletButton: false,
+        })
+      }
     >
       <View style={styles.modalView}>
         <Text style={styles.title}>{"Folder Name:-" + name}</Text>
@@ -106,6 +136,105 @@ const SearchFeeds = (props) => {
           <Text style={{ fontSize: 30, color: "white" }}>Feeds</Text>
         </View>
       </View>
+      <View
+        style={{
+          flex: 0.1,
+          backgroundColor: "#600f",
+          borderTopColor: "gold",
+          borderColor: "#600f",
+          borderWidth: 1,
+        }}
+      >
+        <ScrollView horizontal={true}>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setAll(!all);
+              }}
+              style={{ backgroundColor: !all ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>All</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setCvl(!cvl);
+              }}
+              style={{ backgroundColor: !cvl ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>Civil</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setComp(!comp);
+              }}
+              style={{ backgroundColor: !comp ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>Computer</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setElec(!elec);
+              }}
+              style={{ backgroundColor: !elec ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>Electrical</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setEtc(!etc);
+              }}
+              style={{ backgroundColor: !etc ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>Electronics</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setIt(!it);
+              }}
+              style={{ backgroundColor: !it ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>
+                  Information Tech
+                </Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={{ margin: 10 }}>
+            <TouchableHighlight
+              onPress={() => {
+                setMech(!mech);
+              }}
+              style={{ backgroundColor: !mech ? "#aaaa" : "#f55f" }}
+            >
+              <View>
+                <Text style={{ padding: 8, color: "white" }}>Mechanical</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+        </ScrollView>
+      </View>
+
       <View style={{ flex: 1 }}>
         {ready ? (
           <FlatList

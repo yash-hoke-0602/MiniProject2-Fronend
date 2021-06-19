@@ -21,7 +21,7 @@ export default function SelectPosts(props) {
   const [posts, setPosts] = useState([]);
   const [ready, setReady] = useState(false);
 
-  const { folderId } = props.route.params;
+  const { folderId, deletButton } = props.route.params;
 
   useEffect(() => {
     console.log("SelectPost");
@@ -35,20 +35,30 @@ export default function SelectPosts(props) {
   }, [ready]);
 
   const Item = ({ name, address, id }) => (
-    <View style={{ flex: 1, flexDirection: "row" }}>
-      <Pressable
-        style={{ flex: 0.8 }}
-        onPress={() => props.navigation.navigate("PdfViewer", { address })}
-      >
-        <View style={styles.item}>
-          <Text style={styles.title}>{name}</Text>
-        </View>
-      </Pressable>
-      <Pressable style={{ flex: 0.2 }} onPress={() => deletePostEvent(id)}>
-        <View style={[styles.item, { backgroundColor: "#f008" }]}>
-          <Text style={[styles.title, { color: "white" }]}>Delete</Text>
-        </View>
-      </Pressable>
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <Pressable
+          style={{ flex: 0.8 }}
+          onPress={() => props.navigation.navigate("PdfViewer", { address })}
+        >
+          <View style={styles.item}>
+            <Text style={styles.title}>{name}</Text>
+          </View>
+        </Pressable>
+        {deletButton ? (
+          <Pressable style={{ flex: 0.2 }} onPress={() => deletePostEvent(id)}>
+            <View style={[styles.item, { backgroundColor: "#f008" }]}>
+              <Text style={[styles.title, { color: "white" }]}>Delete</Text>
+            </View>
+          </Pressable>
+        ) : (
+          <Pressable style={{ flex: 0.2 }}>
+            <View style={[styles.item, { backgroundColor: "#0aaa" }]}>
+              <Text style={[styles.title, { color: "white" }]}></Text>
+            </View>
+          </Pressable>
+        )}
+      </View>
     </View>
   );
 

@@ -10,6 +10,7 @@ import {
 import { url } from "../components/url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import ModalDropdown from "react-native-modal-dropdown";
 
 function CreateFeeds(props) {
   const [folderName, setFolderName] = useState("");
@@ -78,19 +79,29 @@ function CreateFeeds(props) {
             onChangeText={(text) => setFolderName(text)}
           />
           <Text>Folder Tag:-</Text>
-          <TextInput
-            label="folderTag"
-            value={folderTag}
-            style={{
-              margin: 15,
-              borderRadius: 5,
-              borderColor: "lightblue",
-              borderWidth: 1,
-              padding: 5,
+          <ModalDropdown
+            onSelect={(index, value) => setFolderTag(value)}
+            style={{ marginTop: 10, marginLeft: 20 }}
+            dropdownStyle={{
+              marginLeft: 50,
             }}
-            theme={{ colors: { primary: "blue" } }}
-            onChangeText={(text) => setFolderTag(text)}
+            textStyle={{
+              padding: 10,
+              fontSize: 20,
+              borderWidth: 2,
+              borderColor: "lightblue",
+              backgroundColor: "dodgerblue",
+            }}
+            options={[
+              "Civil",
+              "Computer",
+              "Electrical",
+              "Electronics",
+              "Information-Tech",
+              "Mechanical",
+            ]}
           />
+
           <Text>Folder Description:-</Text>
           <TextInput
             label="folderDesc"
