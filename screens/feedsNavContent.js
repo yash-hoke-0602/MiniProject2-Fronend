@@ -37,7 +37,7 @@ export function FeedsNavContent(props) {
     })
       .then((res) => res.json())
       .then(async (data) => {
-        console.log(data);
+        //console.log(data);
         setEmail(data.email);
         setImg(data.profData.image);
         setName(data.profData.name);
@@ -120,7 +120,7 @@ export function FeedsNavContent(props) {
               icon={({ color, size }) => (
                 <Icon name="bookmark-outline" color={color} size={size} />
               )}
-              label="Saved Feeds"
+              label="Recommendation"
               onPress={() => {
                 props.navigation.navigate("SavedFeeds");
               }}

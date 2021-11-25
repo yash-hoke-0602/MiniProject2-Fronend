@@ -46,10 +46,10 @@ function Tabs(props) {
           }}
         />
         <Tab.Screen
-          name="Chat"
+          name="Map"
           component={Chat}
           options={{
-            tabBarLabel: "Chat",
+            tabBarLabel: "Map",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="chat" color={color} size={size} />
             ),

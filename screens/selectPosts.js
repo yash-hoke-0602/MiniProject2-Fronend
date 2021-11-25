@@ -124,9 +124,13 @@ export default function SelectPosts(props) {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Button title="Select Document" onPress={onSelectDocument} />
-      </View>
+      {deletButton ? (
+        <View style={styles.container}>
+          <Button title="Select Document" onPress={onSelectDocument} />
+        </View>
+      ) : (
+        <View style={styles.container}></View>
+      )}
       <View>
         {ready ? (
           <FlatList
@@ -139,10 +143,7 @@ export default function SelectPosts(props) {
         )}
       </View>
       <View style={styles.container}>
-        <Button
-          title="Done"
-          onPress={() => props.navigation.navigate("MyFeeds")}
-        />
+        <Button title="Back" onPress={() => props.navigation.pop()} />
       </View>
     </View>
   );

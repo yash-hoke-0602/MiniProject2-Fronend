@@ -19,8 +19,10 @@ import { url } from "../components/url";
 
 const SearchFeeds = (props) => {
   const [folders, setFolders] = useState([]);
+  const [likedFolders, setLikedFolders] = useState([]);
   const [ready, setReady] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
   const [all, setAll] = useState(true);
   const [cvl, setCvl] = useState(false);
   const [comp, setComp] = useState(false);
@@ -28,6 +30,7 @@ const SearchFeeds = (props) => {
   const [etc, setEtc] = useState(false);
   const [mech, setMech] = useState(false);
   const [it, setIt] = useState(false);
+  const [like, setLike] = useState(false);
 
   const loadData = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -44,6 +47,27 @@ const SearchFeeds = (props) => {
       if (mech) filter = filter + " Mechanical";
       if (it) filter = filter + " Information-Tech";
     }
+    // fetch("http://192.168.43.170:9000/test")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+
+    fetch(url + "/feeds/allLikedFolders", {
+      headers: new Headers({
+        Authorization: "Bearer " + token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.msg) {
+          //console.log(data.msg);
+        } else {
+          setLikedFolders(data);
+          console.log(data);
+        }
+      });
+
     fetch(url + "/feeds/allFolders/" + filter, {
       headers: new Headers({
         Authorization: "Bearer " + token,
@@ -52,17 +76,18 @@ const SearchFeeds = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.msg) {
-          console.log(data.msg);
+          //console.log(data.msg);
         } else {
           setFolders(data);
-          console.log(data);
+          //console.log(data);
         }
         setReady(true);
       });
+    setLike(false);
   };
   useEffect(() => {
     loadData();
-  }, [refreshing, ready, all, cvl, comp, elec, etc, mech, it]);
+  }, [refreshing, ready, all, cvl, comp, elec, etc, mech, it, like]);
 
   const Item = ({ name, tag, desc, folderId, author, date }) => (
     <Pressable
@@ -93,9 +118,39 @@ const SearchFeeds = (props) => {
         >
           {"created on:-" + date.split("T")[0]}
         </Text>
+        <Button
+          color={
+            likedFolders.find((element) => element.folderid == folderId)
+              ? "#0055dd"
+              : "#999999"
+          }
+          title="Like"
+          onPress={() => likePostEvent(folderId)}
+        />
       </View>
     </Pressable>
   );
+
+  const likePostEvent = async (folderId) => {
+    const isFolderLiked = likedFolders.find(
+      (element) => element.folderid == folderId
+    );
+    const token = await AsyncStorage.getItem("token");
+
+    if (isFolderLiked) {
+      fetch(url + "/feeds/unlikeFolder/" + folderId, {
+        headers: new Headers({
+          Authorization: "Bearer " + token,
+        }),
+      }).then((res) => setLike(true));
+    } else {
+      fetch(url + "/feeds/likeFolder/" + folderId, {
+        headers: new Headers({
+          Authorization: "Bearer " + token,
+        }),
+      }).then((res) => setLike(true));
+    }
+  };
 
   const renderItem = ({ item }) => (
     <Item

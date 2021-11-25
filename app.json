@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "login_template",
-    "slug": "login_template",
+    "name": "MiniProject2",
+    "slug": "miniproject2",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Pull down to refresh after creating a folder"
   }
 }
