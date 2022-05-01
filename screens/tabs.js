@@ -5,7 +5,8 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreen from "./HomeScreen";
 import Feeds from "./feeds";
-import Chat from "./chat";
+import Map from "./map";
+import BotsGallery from "./botsGallery";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -47,9 +48,19 @@ function Tabs(props) {
         />
         <Tab.Screen
           name="Map"
-          component={Chat}
+          component={Map}
           options={{
             tabBarLabel: "Map",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="chat" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Bots"
+          component={BotsGallery}
+          options={{
+            tabBarLabel: "Bots",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="chat" color={color} size={size} />
             ),
