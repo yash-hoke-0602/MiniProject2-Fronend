@@ -44,6 +44,7 @@ const createFormData = (photo) => {
 export default function ReaderBot(props) {
   const [posts, setPosts] = useState([]);
   const [ready, setReady] = useState(false);
+  const [docSelected, setDocSelected] = useState(false);
   const [user, setUserId] = useState("");
   const [docText, setDocText] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
@@ -67,47 +68,6 @@ export default function ReaderBot(props) {
   useEffect(() => {
     loadData();
   }, [ready]);
-
-  // const Item = ({ name, address, id }) => (
-  //   <View style={{ flex: 1 }}>
-  //     <View style={{ flex: 1, flexDirection: "row" }}>
-  //       <Pressable
-  //         style={{ flex: 0.8 }}
-  //         onPress={() => props.navigation.navigate("PdfViewer", { address })}
-  //       >
-  //         <View style={styles.item}>
-  //           <Text style={styles.title}>{name}</Text>
-  //         </View>
-  //       </Pressable>
-  //       {deletButton ? (
-  //         <Pressable style={{ flex: 0.2 }} onPress={() => deletePostEvent(id)}>
-  //           <View style={[styles.item, { backgroundColor: "#f008" }]}>
-  //             <Text style={[styles.title, { color: "white" }]}>Delete</Text>
-  //           </View>
-  //         </Pressable>
-  //       ) : (
-  //         <Pressable style={{ flex: 0.2 }}>
-  //           <View style={[styles.item, { backgroundColor: "#0aaa" }]}>
-  //             <Text style={[styles.title, { color: "white" }]}></Text>
-  //           </View>
-  //         </Pressable>
-  //       )}
-  //     </View>
-  //   </View>
-  // );
-
-  // const deletePostEvent = (id) => {
-  //   fetch(url + "/feeds/deletepost/" + id)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setReady(false);
-  //     });
-  // };
-
-  // const renderItem = ({ item }) => (
-  //   <Item name={item.postname} address={item.postaddress} id={item._id} />
-  // );
 
   const fetchWithResponse = (urlv, body) => {
     const options = {
@@ -146,6 +106,7 @@ export default function ReaderBot(props) {
   };
 
   const onSelectDocument = async () => {
+    setDocSelected(true);
     let file = await DocumentPicker.getDocumentAsync({ type: "application/*" });
     if (file.type !== "cancel") {
       //console.log(file);
@@ -155,27 +116,50 @@ export default function ReaderBot(props) {
     }
   };
 
-  const onRead = async () => {
+  const onUploadConvert = async () => {
     const token = await AsyncStorage.getItem("token");
+    console.log(docSelected);
+    if (docSelected) {
+      console.log(docText + "ho");
+      // if (!docText) {
+      console.log("hi");
+      fetch(url + "/readerBot/convert", {
+        headers: new Headers({
+          Authorization: "Bearer " + token,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setDocText(res.pdfText);
+          // console.log(res.userId);
+          setReady(true);
+        });
+      // }
+    } else {
+      // if (docText) {
+      fetch(url + "/readerBot/convertImage", {
+        headers: new Headers({
+          Authorization: "Bearer " + token,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setDocText(res.pdfText);
+          // console.log(res.userId);
+          setReady(true);
+        });
+      // }
+    }
+  };
 
-    fetch(url + "/readerBot/convert", {
-      headers: new Headers({
-        Authorization: "Bearer " + token,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setDocText(res.pdfText);
-        // console.log(res.userId);
-        setReady(true);
-      });
-
-    // console.log(Speech.getAvailableVoicesAsync());
+  const onRead = async () => {
+    console.log(Speech.getAvailableVoicesAsync());
     Speech.stop();
     Speech.speak(docText);
   };
 
   const onSelectImage = async () => {
+    setDocSelected(false);
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -222,6 +206,10 @@ export default function ReaderBot(props) {
 
       <View style={styles.container}>
         <Button title="Select Image" onPress={onSelectImage} />
+      </View>
+
+      <View style={styles.container}>
+        <Button title="Upload" onPress={onUploadConvert} />
       </View>
 
       <View style={styles.container}>

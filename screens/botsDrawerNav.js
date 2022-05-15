@@ -7,6 +7,7 @@ import GrammerBot from "./grammerBot";
 import ReaderBot from "./readerBot";
 import UtilityBot from "./utilityBot";
 import GameBot from "./gameBot";
+import SearchBot from "./searchBot";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +32,7 @@ function BotsDrawerNav(props) {
       <Drawer.Screen name="ReaderBot" component={ReaderBot} />
       <Drawer.Screen name="UtilityBot" component={UtilityBot} />
       <Drawer.Screen name="GameBot" component={GameBot} />
+      <Drawer.Screen name="SearchBot" component={SearchBot} />
     </Drawer.Navigator>
   );
 }

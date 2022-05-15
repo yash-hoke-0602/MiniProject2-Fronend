@@ -93,6 +93,15 @@ export function BotsNavContent(props) {
               icon={({ color, size }) => (
                 <Icon name="home-outline" color={color} size={size} />
               )}
+              label="Search Bot"
+              onPress={() => {
+                props.navigation.navigate("SearchBot");
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="home-outline" color={color} size={size} />
+              )}
               label="Grammer Bot"
               onPress={() => {
                 props.navigation.navigate("GrammerBot");

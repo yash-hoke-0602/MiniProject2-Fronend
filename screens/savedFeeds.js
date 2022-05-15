@@ -38,6 +38,11 @@ const SavedFeeds = (props) => {
     //     console.log(data);
     //   });
 
+    fetch("http://192.168.1.9:5000/find")
+      .then((res) => res.json)
+      .then((data) => {
+        console.log(data);
+      });
     fetch(url + "/feeds/allLikedFolders", {
       headers: new Headers({
         Authorization: "Bearer " + token,
