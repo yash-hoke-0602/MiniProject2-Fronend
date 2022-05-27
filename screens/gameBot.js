@@ -3,8 +3,12 @@ import { View, StyleSheet, Button, Text, FlatList } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as Constants from "expo-constants";
 import { Audio } from "expo-av";
+import uuid from "react-native-uuid";
+import { url } from "../components/url";
 
 import { Card, TextInput } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // export default class GameBot extends Component {
 //   state = {
 //     text: "",
@@ -56,66 +60,156 @@ import { Card, TextInput } from "react-native-paper";
 function GameBot(props) {
   const [isStart, setIsStart] = useState(false);
   const [chatText, setChatText] = useState("");
-  const [wordsArray, setWordsArray] = useState([
-    { id: "2", movie: "Spiderman" },
-  ]);
+  const [wordsArray, setWordsArray] = useState([]);
+  const [mapObject, setMapObject] = useState({});
+  const [prevMovie, setPrevMovie] = useState("");
 
-  const handleStartEvent = () => {
-    var array = wordsArray;
-    array.push({
-      id: "1",
-      movie: "batman",
-    });
-    // setWordsArray(wordsArray.concat({ id: "3", movie: "superman" }));
-    console.log(wordsArray);
+  // const loadData = async () => {
+  //   const initObject = {
+  //     id: uuid.v4(),
+  //     movie:"Batman"
+  //   };
+
+  // };
+
+  // useEffect(() => {
+  //   loadData();
+  // });
+
+  const handleStartEvent = async () => {
+    const token = await AsyncStorage.getItem("token");
+
+    fetch(url + "/bots/movieGameBot", {
+      method: "GET",
+      headers: new Headers({
+        Authorization: "Bearer " + token,
+      }),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setMapObject(data.movieList);
+        console.log(data);
+      });
+
+    const movieArray = mapObject;
+    for (var item in movieArray) {
+      setMapObject((prev) => ({ ...prev, [item]: false }));
+    }
+
+    setMapObject((prev) => ({ ...prev, tenet: true }));
+    setWordsArray((prevState) => [...prevState, "tenet"]);
     setIsStart(true);
+    setPrevMovie("tenet");
+  };
+
+  const handleResetEvent = (e) => {
+    fetch(url + "/bots/destroyMovieGameBot", {
+      method: "GET",
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        // setMapObject(data.movieList);
+        console.log(data);
+      });
+  };
+
+  const handleStopEvent = (e) => {
+    setWordsArray([]);
+    setPrevMovie("");
+    setIsStart(false);
+    const movieArr = mapObject;
+    for (var item in movieArr) {
+      setMapObject((prev) => ({ ...prev, [item]: false }));
+    }
+    fetch(url + "/bots/setMovieGameBot", {
+      method: "POST",
+      headers: new Headers({
+        // Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify({
+        moviesList: mapObject,
+      }),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        // setMapObject(data.movieList);
+        console.log(data);
+      });
   };
 
   const handleSubmitEvent = (e) => {
-    e.preventDefault();
+    console.log("prev-" + prevMovie);
+    var movieName = chatText;
+    setChatText(movieName.toLowerCase());
+    const lastChar = prevMovie.charAt(prevMovie.length - 1);
+    const firstChar = chatText.charAt(0);
+    console.log(lastChar + "-" + firstChar);
 
-    if (chatText == "aquaman") {
-      var array = wordsArray;
-      array.push({
-        id: "4",
-        movie: chatText,
-      });
-      array.push({
-        id: "3",
-        movie: "narniya",
-      });
-      setWordsArray(array);
-      console.log(wordsArray);
+    if (lastChar === firstChar) {
+      // const userObject = {
+      //   movie: chatText,
+      // };
+
+      var currentMovie = "kjad";
+      const lastNewChar = chatText.charAt(chatText.length - 1);
+      const movieArray = mapObject;
+      for (var item in movieArray) {
+        console.log("A[0]=" + item.charAt(0) + lastNewChar + mapObject[item]);
+        if (item.charAt(0) === lastNewChar && !mapObject[item]) {
+          currentMovie = item;
+          console.log(currentMovie);
+        }
+      }
+      console.log(currentMovie);
+
+      setWordsArray((prevState) => [...prevState, chatText]);
+
+      setMapObject((prev) => ({ ...prev, [chatText]: true }));
+      setPrevMovie(currentMovie);
+      if (currentMovie !== "kjad") {
+        // const responseObject = {
+        //   movie: currentMovie,
+        // };
+        setWordsArray((prevState) => [...prevState, currentMovie]);
+        setMapObject((prev) => ({ ...prev, [currentMovie]: true }));
+      } else {
+        const movieArr = mapObject;
+        for (var item in movieArr) {
+          var itemStr = "" + item;
+          setMapObject((prev) => ({ ...prev, [itemStr]: false }));
+          console.log("map-" + item);
+        }
+        console.log("END:-" + mapObject);
+
+        fetch(url + "/bots/setMovieGameBot", {
+          method: "POST",
+          headers: new Headers({
+            // Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          }),
+          body: JSON.stringify({
+            moviesList: mapObject,
+          }),
+        })
+          .then((data) => data.json())
+          .then((data) => {
+            // setMapObject(data.movieList);
+            console.log(data);
+          });
+
+        setWordsArray([]);
+        setPrevMovie("");
+        setIsStart(false);
+      }
     }
-  };
-
-  const handleUserResponse = async () => {
-    // const token = await AsyncStorage.getItem("token");
-    // fetch(url + "/feeds/addfolder", {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: "Bearer " + token,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     folderName: folderName,
-    //     folderDesc: folderDesc,
-    //     folderTag: folderTag,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log("response", response);
-    //     props.navigation.navigate("SelectPosts", response);
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
+    console.log(wordsArray);
+    console.log(mapObject);
   };
 
   const renderItem = ({ item }) => (
     <Card style={{ backgroundColor: "#ffff", margin: 10 }}>
-      <Text>{item.movie}</Text>
+      <Text>{item}</Text>
     </Card>
   );
 
@@ -124,6 +218,7 @@ function GameBot(props) {
       {isStart ? (
         <View>
           <View>
+            <Button title="Stop" onPress={handleStopEvent} />
             <TextInput
               value={chatText}
               label="Chat"
@@ -134,7 +229,7 @@ function GameBot(props) {
                 borderWidth: 1,
                 padding: 5,
               }}
-              placeholder="Enter something"
+              placeholder="Enter movie name"
               theme={{ colors: { primary: "blue" } }}
               onChangeText={(text) => {
                 setChatText(text);
@@ -144,27 +239,25 @@ function GameBot(props) {
           </View>
           <View>
             <FlatList
+              inverted={true}
               data={wordsArray}
               renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => uuid.v4() + item.movie}
             />
           </View>
         </View>
       ) : (
-        <Button title="Start" onPress={handleStartEvent} />
+        <View>
+          <View style={{ margin: 10 }}>
+            <Button title="Start" onPress={handleStartEvent} />
+          </View>
+          <View style={{ margin: 10 }}>
+            <Button title="Reset" onPress={handleResetEvent} />
+          </View>
+        </View>
       )}
     </View>
   );
 }
 
 export default GameBot;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: "#ecf0f1",
-  },
-});

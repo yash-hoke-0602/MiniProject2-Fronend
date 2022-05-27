@@ -38,11 +38,11 @@ const SavedFeeds = (props) => {
     //     console.log(data);
     //   });
 
-    fetch("http://192.168.1.9:5000/find")
-      .then((res) => res.json)
-      .then((data) => {
-        console.log(data);
-      });
+    // fetch("http://192.168.1.9:5000/find")
+    //   .then((res) => res.json)
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
     fetch(url + "/feeds/allLikedFolders", {
       headers: new Headers({
         Authorization: "Bearer " + token,
@@ -58,7 +58,7 @@ const SavedFeeds = (props) => {
         }
       });
 
-    fetch(url + "/feeds/allFolders/" + filter, {
+    fetch(url + "/feeds/recommendationFolders/", {
       headers: new Headers({
         Authorization: "Bearer " + token,
       }),
@@ -144,12 +144,12 @@ const SavedFeeds = (props) => {
 
   const renderItem = ({ item }) => (
     <Item
-      name={item.foldername}
-      tag={item.foldertag}
-      desc={item.folderdescription}
-      folderId={item._id}
-      author={item.author}
-      date={item.date}
+      name={item.postData.foldername}
+      tag={item.postData.foldertag}
+      desc={item.postData.folderdescription}
+      folderId={item.postData._id}
+      author={item.postData.author}
+      date={item.postData.date}
     />
   );
 
@@ -187,7 +187,7 @@ const SavedFeeds = (props) => {
           <FlatList
             data={folders}
             renderItem={renderItem}
-            keyExtractor={(item) => item._id}
+            keyExtractor={(item) => item.postData._id}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }

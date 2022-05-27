@@ -98,7 +98,7 @@ export function BotsNavContent(props) {
                 props.navigation.navigate("SearchBot");
               }}
             />
-            <DrawerItem
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="home-outline" color={color} size={size} />
               )}
@@ -106,8 +106,8 @@ export function BotsNavContent(props) {
               onPress={() => {
                 props.navigation.navigate("GrammerBot");
               }}
-            />
-            <DrawerItem
+            /> */}
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
               )}
@@ -115,7 +115,7 @@ export function BotsNavContent(props) {
               onPress={() => {
                 props.navigation.navigate("UtilityBot");
               }}
-            />
+            /> */}
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-check-outline" color={color} size={size} />
